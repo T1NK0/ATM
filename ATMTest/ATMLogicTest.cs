@@ -1,4 +1,5 @@
-﻿using ATMBank.Logic;
+﻿using ATMBank.Entities;
+using ATMBank.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,50 +13,37 @@ namespace ATMTest
     {
         private ATM _atmLogic = new ATM();
 
-        [Fact]
-        public void CheckPin_ShouldFail()
+        [Theory]
+        [InlineData(2244, 1666)]
+        [InlineData(2244, 999999)]
+        [InlineData(6666, -666)]
+        public void CheckPin_ShouldFail(int userPress, int pin)
         {
             //Arrange
-            int expected = 0666;
-            int actual = 0660;
-
-            bool status = false;
+            bool expected = false;
+            Card card = new Card(pin);
 
             //Act
-            if (expected == actual)
-            {
-                status = true;
-            }
-            else if (expected != actual)
-            {
-                status = false;
-            }
+            bool actual = _atmLogic.CheckPin(card, userPress);
 
             //Assert
-            Assert.False(status);
+            Assert.True(actual == expected);
         }
 
-        [Fact]
-        public void CheckPin_ShouldWork()
+        [Theory]
+        [InlineData(2244, 2244)]
+        [InlineData(1666, 1666)]
+        public void CheckPin_ShouldWork(int userPress, int pin)
         {
             //Arrange
-            int expected = 0666;
-            int actual = 0666;
-
-            bool status = false;
+            bool expected = true;
+            Card card = new Card(pin);
 
             //Act
-            if (expected == actual)
-            {
-                status = true;
-            }
-            else if (expected != actual)
-            {
-                status = false;
-            }
+            bool actual = _atmLogic.CheckPin(card, userPress);
 
             //Assert
-            Assert.True(status);
+            Assert.True(expected == actual);
         }
 
         [Fact]

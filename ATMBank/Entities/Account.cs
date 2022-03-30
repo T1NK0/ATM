@@ -12,7 +12,7 @@ namespace ATMBank.Entities
         public Account()
         {
             _accountNumber = new Random().Next(100000, 999999);
-            _balance = new Random().Next(002000, 999999);
+            _balance = new Random().Next(1000, 10000);
         }
 
         #region properties

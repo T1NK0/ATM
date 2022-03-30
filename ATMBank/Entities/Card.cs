@@ -10,6 +10,14 @@ namespace ATMBank.Entities
         private int _pinCode;
         #endregion
 
+        //A constructor that takes a card code number, since the other accounts had a set pin, which we will set in our test theory
+        public Card(int code)
+        {
+            _account = Account;
+            _pinCode = code;
+            _cardNumber = new Random().Next(10000000, 99999999);
+        }
+
         public Card(Account account)
         {
             _account = account;
