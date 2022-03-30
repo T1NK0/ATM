@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATMBank.Logic;
+using System;
 
 namespace ATMConsole
 {
@@ -6,6 +7,8 @@ namespace ATMConsole
     {
         static void Main(string[] args)
         {
+            ATM _logic = new ATM();
+
             Console.WriteLine("Hello World!");
         }
     }

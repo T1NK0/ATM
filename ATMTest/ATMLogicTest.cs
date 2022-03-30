@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATMBank.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace ATMTest
 {
     public class ATMLogicTest
     {
+        private ATM _atmLogic = new ATM();
+
         [Fact]
         public void CheckPin_ShouldFail()
         {
@@ -105,7 +108,6 @@ namespace ATMTest
                 status = false;
             }
 
-            //False for withdraw available status (true is available)
             //Assert
             Assert.False(status);
         }
@@ -128,8 +130,7 @@ namespace ATMTest
             {
                 status = false;
             }
-
-            //False for withdraw available status (true is available)
+                
             //Assert
             Assert.True(status);
         }
