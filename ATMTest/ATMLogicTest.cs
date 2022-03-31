@@ -110,5 +110,11 @@ namespace ATMTest
             //Assert
             Assert.True(actual == expected);
         }
+
+        [Fact]
+        public void DepositBalance_ShouldFail()
+        {
+            
+        }
     }
 }

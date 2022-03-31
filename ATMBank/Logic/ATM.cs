@@ -23,10 +23,12 @@ namespace ATMBank.Logic
             if (CheckAccountBalance(account, amount))
             {
                 account.Balance -= amount;
+                Console.WriteLine($"Din nye balance er: {account.Balance}kr.");
                 return true;
             }
             else
             {
+                Console.WriteLine("Kunne ikke trække beløbet fra.");
                 return false;
             }
 
@@ -41,6 +43,7 @@ namespace ATMBank.Logic
             }
             else
             {
+                Console.WriteLine("Ikke nok penge på kontoen.");
                 return false;
             }
             throw new NotImplementedException();
