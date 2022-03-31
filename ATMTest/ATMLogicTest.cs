@@ -17,14 +17,14 @@ namespace ATMTest
         [InlineData(2244, 1666)]
         [InlineData(2244, 999999)]
         [InlineData(6666, -666)]
-        public void CheckPin_ShouldFail(int userPress, int pin)
+        public void CheckPin_ShouldFail(int userInput, int pin)
         {
             //Arrange
             bool expected = false;
             Card card = new Card(pin);
 
             //Act
-            bool actual = _atmLogic.CheckPin(card, userPress);
+            bool actual = _atmLogic.CheckPin(card, userInput);
 
             //Assert
             Assert.True(actual == expected);
@@ -33,94 +33,82 @@ namespace ATMTest
         [Theory]
         [InlineData(2244, 2244)]
         [InlineData(1666, 1666)]
-        public void CheckPin_ShouldWork(int userPress, int pin)
+        public void CheckPin_ShouldWork(int userInput, int pin)
         {
             //Arrange
             bool expected = true;
             Card card = new Card(pin);
 
             //Act
-            bool actual = _atmLogic.CheckPin(card, userPress);
+            bool actual = _atmLogic.CheckPin(card, userInput);
 
             //Assert
             Assert.True(expected == actual);
         }
 
-        [Fact]
-        public void Withdraw_ShouldFail()
+        [Theory]
+        [InlineData(14000.00)]
+        [InlineData(-600.00)]
+        public void Withdraw_ShouldFail(double withdrawAmount)
         {
-            //Arrange
-            double accountBalance = 2500.00;
-            double withdrawAmount = 2600.00;
+            //Arrang
+            Account account = new Account();
+            bool expected = false;
 
             //Act
-            accountBalance -= withdrawAmount;
+            bool actual = _atmLogic.Withdraw(account, withdrawAmount);
+
 
             //Assert
-            Assert.False(accountBalance > 0);
+            Assert.True(actual == expected);
         }
 
-        [Fact]
-        public void Withdraw_ShouldWork()
+        [Theory]
+        [InlineData(1000.00)]
+        [InlineData(600.00)]
+        public void Withdraw_ShouldWork(double withdrawAmount)
         {
-            //Arrange
-            double accountBalance = 2500.00;
-            double withdrawAmount = 250.00;
+            //Arrang
+            Account account = new Account();
+            bool expected = true;
 
             //Act
-            if (accountBalance > withdrawAmount)
-            {
-                accountBalance -= withdrawAmount;
-            }
+            bool actual = _atmLogic.Withdraw(account, withdrawAmount);
 
             //Assert
-            Assert.True(accountBalance > 0);
+            Assert.True(actual == expected);
         }
 
-        [Fact]
-        public void CheckBalance_ShouldFail()
+        [Theory]
+        [InlineData(14000.00)]
+        [InlineData(-600.00)]
+        public void CheckBalance_ShouldFail(double withdrawAmount)
         {
-            //Arrange
-            double balance = 2500.00;
-            double withdraw = 2600.00;
-
-            bool status = false;
+            //Arrang
+            Account account = new Account();
+            bool expected = false;
 
             //Act
-            if (balance > withdraw)
-            {
-                status = true;
-            } 
-            else if (balance < withdraw)
-            {
-                status = false;
-            }
+            bool actual = _atmLogic.CheckAccountBalance(account, withdrawAmount);
 
             //Assert
-            Assert.False(status);
+            Assert.True(actual == expected);
         }
 
-        [Fact]
-        public void CheckBalance_ShouldWork()
+        [Theory]
+        [InlineData(1000.00)]
+        [InlineData(600.00)]
+        public void CheckBalance_ShouldWork(double withdrawAmount)
         {
-            //Arrange
-            double balance = 2500.00;
-            double withdraw = 600.00;
-
-            bool status = false;
+            //Arrang
+            Account account = new Account();
+            bool expected = true;
 
             //Act
-            if (balance > withdraw)
-            {
-                status = true;
-            }
-            else if (balance < withdraw)
-            {
-                status = false;
-            }
-                
+            bool actual = _atmLogic.Withdraw(account, withdrawAmount);
+
             //Assert
-            Assert.True(status);
+            Assert.True(actual == expected);
         }
     }
 }

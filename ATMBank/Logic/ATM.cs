@@ -18,11 +18,16 @@ namespace ATMBank.Logic
             throw new NotImplementedException();
         }
 
-        public void Withdraw(Account account, double amount)
+        public bool Withdraw(Account account, double amount)
         {
-            if (CheckAccountBalance(account, amount) == true)
+            if (CheckAccountBalance(account, amount))
             {
                 account.Balance -= amount;
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
             throw new NotImplementedException();
@@ -30,7 +35,7 @@ namespace ATMBank.Logic
 
         public bool CheckAccountBalance(Account account, double withdrawAmount)
         {
-            if (withdrawAmount < account.Balance)
+            if (withdrawAmount < account.Balance && withdrawAmount > 0)
             {
                 return true;
             }
